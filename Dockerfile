@@ -169,7 +169,7 @@ RUN pip install --upgrade tornado==5.1.1
 # =================================
 # Xgboost 2020-03-28版本
 # =================================
-RUN pip install pip install https://s3-us-west-2.amazonaws.com/xgboost-1.1.0_SNAPSHOT+7f980e9f83a53f21788850f65f87aec051be1993-py2.py3-none-manylinux1_x86_64.whl
+RUN pip install xgboost
 
 # settings
 # =================================
