@@ -30,8 +30,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
            /etc/apt/sources.list.d/cuda.list \
            /etc/apt/sources.list.d/nvidia-ml.list && \
     apt-get update && \
-    apt-get remove cmake \
-    $APT_INSTALL cmake \
+    apt-get remove cmake && \
+    
 # ==================================================================
 # tools
 # ------------------------------------------------------------------
@@ -43,17 +43,19 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         curl \
         wget \
         git \
-        vim \
-        && \
+        vim 
+        
 # ==================================================================
 # python
 # ------------------------------------------------------------------
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+RUN DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         software-properties-common \
         && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+    $APT_INSTALL cmake  
+    
+RUN DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         python3.6 \
         python3.6-dev \
         python3-distutils-extra \
