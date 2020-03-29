@@ -32,7 +32,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     apt-get update && \
 RUN apt-get remove cmake
 #RUN apt-get purge cmake
-RUN apt-get install cmake
+RUN $APT_INSTALL install cmake
 # ==================================================================
 # tools
 # ------------------------------------------------------------------
