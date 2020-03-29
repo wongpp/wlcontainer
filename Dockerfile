@@ -29,13 +29,27 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     rm -rf /var/lib/apt/lists/* \
            /etc/apt/sources.list.d/cuda.list \
            /etc/apt/sources.list.d/nvidia-ml.list && \
-    apt-get update && \
-    apt-get remove cmake && \
+    apt-get update
     
+RUN DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        software-properties-common \
+        && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt-get upgrade && \
+    apt-get remove camke 
+    
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2.tar.gz && \
+      tar -zxvf cmake-3.15.2.tar.gz && \
+      cd cmake-3.15.2 && \
+      ./bootstrap && \
+      make  && \
+      make install 
+      
 # ==================================================================
 # tools
 # ------------------------------------------------------------------
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+RUN    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         build-essential \
         apt-utils \
         ca-certificates \
@@ -47,15 +61,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         
 # ==================================================================
 # python
-# ------------------------------------------------------------------
-RUN DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        software-properties-common \
-        && \
-    add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    apt-get upgrade && \ 
-    $APT_INSTALL cmake  
-    
+# ------------------------------------------------------------------ 
 RUN DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         python3.6 \
         python3.6-dev \
@@ -175,14 +181,6 @@ RUN pip install --upgrade tornado==5.1.1
 # =================================
 # Xgboost gpu版本  
 # =================================
-#RUN wget https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2.tar.gz && \
-#  tar -zxvf cmake-3.15.2.tar.gz && \
-#  cd cmake-3.15.2 && \
-#  ./bootstrap
-#  make
-#  make install
-
-
 
 RUN cd /usr/local/src && \
   git clone --recursive https://github.com/dmlc/xgboost && \
