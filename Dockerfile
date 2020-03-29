@@ -30,9 +30,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
            /etc/apt/sources.list.d/cuda.list \
            /etc/apt/sources.list.d/nvidia-ml.list && \
     apt-get update && \
-RUN apt-get remove cmake
-#RUN apt-get purge cmake
-RUN $APT_INSTALL install cmake
+    apt-get remove cmake \
+    $APT_INSTALL cmake \
 # ==================================================================
 # tools
 # ------------------------------------------------------------------
