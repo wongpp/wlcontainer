@@ -176,9 +176,9 @@ RUN pip install --upgrade tornado==5.1.1
 #  ./bootstrap
 #  make
 #  make install
-RUN apt-get uninstall cmake
-RUN apt-get remove cmake
-RUN apt-get purge cmake
+#RUN apt-get uninstall cmake
+#RUN apt-get remove cmake
+#RUN apt-get purge cmake
 RUN apt-get install cmake
 
 RUN cd /usr/local/src && \
