@@ -167,9 +167,15 @@ RUN pip install --upgrade tornado==5.1.1
 # =================================
 
 # =================================
-# Xgboost 2020-03-28版本
+# Xgboost gpu版本
 # =================================
-RUN pip install xgboost
+RUN cd /usr/local/src && \
+  git clone --recursive https://github.com/dmlc/xgboost && \
+  cd xgboost && \
+  mkdir build && \
+  cd build && \
+  cmake --DUSE_CUDA=ON .. && \
+  make -j
 
 # settings
 # =================================
