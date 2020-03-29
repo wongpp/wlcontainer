@@ -53,6 +53,7 @@ RUN DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
+    apt-get upgrade && \ 
     $APT_INSTALL cmake  
     
 RUN DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
