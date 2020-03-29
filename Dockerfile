@@ -188,7 +188,9 @@ RUN cd /usr/local/src && \
   mkdir build && \
   cd build && \
   cmake --DUSE_CUDA=ON .. && \
-  make -j
+  make -j4  && \
+  cd python-package  && \
+  python setup.py install --use-cuda
 
 # settings
 # =================================
