@@ -102,6 +102,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         nilearn\
         mne\
         numba\
+        h5py\
         &&\
 # ------------------------------------------------------------------
 # Mxnet
@@ -127,23 +128,23 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ==================================================================
 # tensorflow
 # ------------------------------------------------------------------
-    $PIP_INSTALL \
-        tensorflow-gpu \
-        && \
+#    $PIP_INSTALL \
+#        tensorflow-gpu \
+#        && \
 # ==================================================================
 # tensorboradx and torchvision
 # ------------------------------------------------------------------      
-    $PIP_INSTALL \
-        torchvision\
-        tensorboardx\
-        && \
+#    $PIP_INSTALL \
+#        torchvision\
+#        tensorboardx\
+#        && \
 # ==================================================================
 # keras
 # ------------------------------------------------------------------
-    $PIP_INSTALL \
-        h5py \
-        keras \
-        && \
+#    $PIP_INSTALL \
+#        h5py \
+#        keras \
+#       && \
 # ==================================================================
 # config & cleanup
 # ------------------------------------------------------------------
@@ -167,8 +168,19 @@ RUN pip install --upgrade tornado==5.1.1
 # =================================
 
 # =================================
-# Xgboost gpu版本
+# Xgboost gpu版本  
 # =================================
+#RUN wget https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2.tar.gz && \
+#  tar -zxvf cmake-3.15.2.tar.gz && \
+#  cd cmake-3.15.2 && \
+#  ./bootstrap
+#  make
+#  make install
+RUN apt-get uninstall cmake
+RUN apt-get remove cmake
+RUN apt-get purge cmake
+RUN apt-get install cmake
+
 RUN cd /usr/local/src && \
   git clone --recursive https://github.com/dmlc/xgboost && \
   cd xgboost && \
