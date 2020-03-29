@@ -23,33 +23,18 @@ LABEL maintainer="nclxwen@gmail.com"
 # =================================================================
 # set evn
 # -----------------------------------------------------------------
+RUN apt-get update
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
     rm -rf /var/lib/apt/lists/* \
            /etc/apt/sources.list.d/cuda.list \
            /etc/apt/sources.list.d/nvidia-ml.list && \
-    apt-get update
-    
-RUN DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        software-properties-common \
-        && \
-    add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
-    apt-get upgrade && \
-    apt-get remove camke 
-    
-RUN wget https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2.tar.gz && \
-      tar -zxvf cmake-3.15.2.tar.gz && \
-      cd cmake-3.15.2 && \
-      ./bootstrap && \
-      make  && \
-      make install 
-      
 # ==================================================================
 # tools
 # ------------------------------------------------------------------
-RUN    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         build-essential \
         apt-utils \
         ca-certificates \
@@ -57,12 +42,17 @@ RUN    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         curl \
         wget \
         git \
-        vim 
-        
+        vim \
+        && \
 # ==================================================================
 # python
-# ------------------------------------------------------------------ 
-RUN DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+# ------------------------------------------------------------------
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+        software-properties-common \
+        && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         python3.6 \
         python3.6-dev \
         python3-distutils-extra \
@@ -113,7 +103,7 @@ RUN DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         nilearn\
         mne\
         numba\
-        h5py\
+        h5py \
         &&\
 # ------------------------------------------------------------------
 # Mxnet
@@ -155,7 +145,7 @@ RUN DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
 #    $PIP_INSTALL \
 #        h5py \
 #        keras \
-#       && \
+#        && \
 # ==================================================================
 # config & cleanup
 # ------------------------------------------------------------------
@@ -179,18 +169,29 @@ RUN pip install --upgrade tornado==5.1.1
 # =================================
 
 # =================================
-# Xgboost gpu版本  
+# cmake upgrade
 # =================================
+RUN apt remove --purge --auto-remove cmake  && \
+    wget https://cmake.org/files/v3.17/cmake-3.17.0-Linux-x86_64.tar.gz   && \
+    tar -zxvf cmake-3.17.0-Linux-x86_64.tar.gz   && \
+    cd cmake-3.17.0-Linux-x86_64   && \
+    ./bootstrap   && \
+    make   && \
+    make install   && \
+    cmake --version   
 
-RUN cd /usr/local/src && \
-  git clone --recursive https://github.com/dmlc/xgboost && \
-  cd xgboost && \
-  mkdir build && \
-  cd build && \
-  cmake --DUSE_CUDA=ON .. && \
-  make -j4  && \
-  cd python-package  && \
-  python setup.py install --use-cuda
+    
+# =================================
+# Xgboost + gpu
+# =================================
+RUN git clone --recursive https://github.com/dmlc/xgboost  && \
+    cd xgboost  && \
+    mkdir build  && \
+    cd build  && \
+    cmake .. -DUSE_CUDA=ON  && \
+    make -j  && \
+    cd python-package   && \	
+    python setup.py install
 
 # settings
 # =================================
