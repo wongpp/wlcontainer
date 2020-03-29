@@ -30,6 +30,9 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
            /etc/apt/sources.list.d/cuda.list \
            /etc/apt/sources.list.d/nvidia-ml.list && \
     apt-get update && \
+RUN apt-get remove cmake
+#RUN apt-get purge cmake
+RUN apt-get install cmake
 # ==================================================================
 # tools
 # ------------------------------------------------------------------
@@ -176,10 +179,8 @@ RUN pip install --upgrade tornado==5.1.1
 #  ./bootstrap
 #  make
 #  make install
-#RUN apt-get uninstall cmake
-#RUN apt-get remove cmake
-#RUN apt-get purge cmake
-RUN apt-get install cmake
+
+
 
 RUN cd /usr/local/src && \
   git clone --recursive https://github.com/dmlc/xgboost && \
