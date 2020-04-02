@@ -28,7 +28,7 @@ RUN apt upgrade
 # =================================
 # cmake upgrade
 # =================================
-RUN apt remove --purge --auto-remove cmake  && \
+RUN apt remove -y --purge --auto-remove cmake  && \
     wget https://cmake.org/files/v3.17/cmake-3.17.0-Linux-x86_64.tar.gz   && \
     tar -zxvf cmake-3.17.0-Linux-x86_64.tar.gz   && \
     cd cmake-3.17.0-Linux-x86_64   && \
