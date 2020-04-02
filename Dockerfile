@@ -172,27 +172,28 @@ RUN pip install --upgrade tornado==5.1.1
 # =================================
 # cmake upgrade
 # =================================
-RUN apt remove -y --purge --auto-remove cmake  && \
-    wget https://github.com/Kitware/CMake/releases/download/v3.17.0/cmake-3.17.0.tar.gz   && \
-    tar -zxvf cmake-3.17.0.tar.gz   && \
-    cd cmake-3.17.0   && \
-    ./bootstrap   && \
-    make   && \
-    make install   && \
-    cmake --version   
+#RUN apt remove -y --purge --auto-remove cmake  && \
+#    wget https://github.com/Kitware/CMake/releases/download/v3.17.0/cmake-3.17.0.tar.gz   && \
+#    tar -zxvf cmake-3.17.0.tar.gz   && \
+#    cd cmake-3.17.0   && \
+#    ./bootstrap   && \
+#    make   && \
+#    make install   && \
+#    cmake --version   
 
     
 # =================================
 # Xgboost + gpu
 # =================================
-RUN git clone --recursive https://github.com/dmlc/xgboost  && \
-    cd xgboost  && \
-    mkdir build  && \
-    cd build  && \
-    cmake .. -DUSE_CUDA=ON  && \
-    make -j  && \
-    cd python-package   && \	
-    python setup.py install
+#RUN git clone --recursive https://github.com/dmlc/xgboost  && \
+#    cd xgboost  && \
+#    mkdir build  && \
+#    cd build  && \
+#    cmake .. -DUSE_CUDA=ON  && \
+#    make -j  && \
+#    cd python-package   && \	
+#    python setup.py install
+RUN pip install xgboost
 
 # settings
 # =================================
