@@ -172,14 +172,17 @@ RUN pip install --upgrade tornado==5.1.1
 # =================================
 # cmake upgrade
 # =================================
-#RUN apt remove -y --purge --auto-remove cmake  && \
-#    wget https://github.com/Kitware/CMake/releases/download/v3.17.0/cmake-3.17.0.tar.gz   && \
-#    tar -zxvf cmake-3.17.0.tar.gz   && \
-#    cd cmake-3.17.0   && \
-#    ./bootstrap   && \
-#    make   && \
-#    make install   && \
-#    cmake --version   
+RUN apt-get install -y openssl && \
+    apt-get install -y libssl-dev
+
+RUN apt remove -y --purge --auto-remove cmake  && \
+    wget https://github.com/Kitware/CMake/releases/download/v3.17.0/cmake-3.17.0.tar.gz   && \
+    tar -zxvf cmake-3.17.0.tar.gz   && \
+    cd cmake-3.17.0   && \
+    ./bootstrap   && \
+    make   && \
+    make install   && \
+    cmake --version   
 
     
 # =================================
