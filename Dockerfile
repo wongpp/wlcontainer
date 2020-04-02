@@ -20,10 +20,26 @@
 
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04 as base
 LABEL maintainer="nclxwen@gmail.com"
+
+RUN apt-get update
+RUN apt-get upgrade
+RUN apt update
+RUN apt upgrade
+# =================================
+# cmake upgrade
+# =================================
+RUN apt remove --purge --auto-remove cmake  && \
+    wget https://cmake.org/files/v3.17/cmake-3.17.0-Linux-x86_64.tar.gz   && \
+    tar -zxvf cmake-3.17.0-Linux-x86_64.tar.gz   && \
+    cd cmake-3.17.0-Linux-x86_64   && \
+    ./bootstrap   && \
+    make   && \
+    make install   && \
+    cmake --version   
+    
 # =================================================================
 # set evn
-# -----------------------------------------------------------------
-RUN apt-get update
+# -----------------------------------------------------------------    
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -168,17 +184,7 @@ RUN apt-get install -y curl grep sed dpkg && \
 RUN pip install --upgrade tornado==5.1.1
 # =================================
 
-# =================================
-# cmake upgrade
-# =================================
-RUN apt remove --purge --auto-remove cmake  && \
-    wget https://cmake.org/files/v3.17/cmake-3.17.0-Linux-x86_64.tar.gz   && \
-    tar -zxvf cmake-3.17.0-Linux-x86_64.tar.gz   && \
-    cd cmake-3.17.0-Linux-x86_64   && \
-    ./bootstrap   && \
-    make   && \
-    make install   && \
-    cmake --version   
+
 
     
 # =================================
