@@ -181,7 +181,8 @@ RUN apt remove -y --purge --auto-remove cmake  && \
 
     
 # =================================
-# Xgboost + gpu
+# Xgboost + gpu  
+# must latest cuda 
 # =================================
 RUN git clone --recursive https://github.com/dmlc/xgboost  && \
     cd xgboost  && \
@@ -189,6 +190,7 @@ RUN git clone --recursive https://github.com/dmlc/xgboost  && \
     cd build  && \
     cmake .. -DUSE_CUDA=ON  && \
     make -j4  && \
+    cd ..   && \
     cd python-package   && \	
     python setup.py install
 #RUN pip install xgboost
