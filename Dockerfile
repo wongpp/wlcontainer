@@ -18,8 +18,8 @@
 # Nilearn       latest (pip)
 # ---------------------------------
 
-FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04 as base
-LABEL maintainer="nclxwen@gmail.com"
+FROM nvidia/cuda:10.2-cudnn7-devel-ubuntu18.04 as base
+LABEL maintainer="934685522@qq.com"
 
 RUN apt-get update
 # =================================================================
@@ -188,7 +188,7 @@ RUN git clone --recursive https://github.com/dmlc/xgboost  && \
     mkdir build  && \
     cd build  && \
     cmake .. -DUSE_CUDA=ON  && \
-    make -j  && \
+    make -j4  && \
     cd python-package   && \	
     python setup.py install
 #RUN pip install xgboost
