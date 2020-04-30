@@ -129,7 +129,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         typing \
         && \
     $PIP_INSTALL \
-        torch  torchvision \
+        torch  torchvision pytorch-crf\
         && \
 # ==================================================================
 # tensorflow
