@@ -105,6 +105,10 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         mne\
         numba\
         h5py \
+        nolds \
+        pyhht \
+        pyhrv \
+        PyWavelets \
         &&\
 # ------------------------------------------------------------------
 # Mxnet
@@ -125,7 +129,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         typing \
         && \
     $PIP_INSTALL \
-        torch -f https://download.pytorch.org/whl/nightly/cu100/torch.html \
+        torch  torchvision \
         && \
 # ==================================================================
 # tensorflow
