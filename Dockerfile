@@ -97,7 +97,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         nolds \
         pyhht \
         pyhrv \
-        PyWavelets \
         &&\
 # ------------------------------------------------------------------
 # Mxnet
