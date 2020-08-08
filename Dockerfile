@@ -54,18 +54,18 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         scikit-learn \
         matplotlib \
         Cython \
-        && \
-
-    $PIP_INSTALL \
         numba\
         h5py \
         nolds \
         pyhht \
         pyhrv \
-        &&\
-
-    $PIP_INSTALL \
         torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html \
+        pytorch-crf \
+        openpyxl \
+        pyEDFlib \
+        future \
+        visbrain \
+        yasa \
         && \
 
 # ==================================================================
